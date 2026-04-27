@@ -78,6 +78,10 @@ function updateBlogPreview() {
     document.getElementById('preview-blog-category').innerText = document.getElementById('blog-category').value || 'General';
     const tags = document.getElementById('blog-tags').value;
     document.getElementById('preview-blog-tags').innerText = tags ? tags.split(',').map(t => `#${t.trim()}`).join(' ') : '#cybersecurity';
+    
+    // Update date to current date
+    const options = { month: 'short', day: 'numeric', year: 'numeric' };
+    document.getElementById('preview-blog-date').innerText = new Date().toLocaleDateString('en-US', options);
 }
 
 function updateProjectPreview() {
@@ -105,7 +109,12 @@ async function fetchBlogs() {
         const blogs = await res.json();
         blogList.innerHTML = blogs.map(blog => `
             <tr>
-                <td>${blog.title}</td>
+                <td>
+                    <div class="table-item-info">
+                        <img src="${blog.image || 'https://via.placeholder.com/40'}" class="table-thumb" alt="">
+                        <span>${blog.title}</span>
+                    </div>
+                </td>
                 <td>${new Date(blog.createdAt).toLocaleDateString()}</td>
                 <td class="actions-cell">
                     <button class="btn btn-danger" onclick="deleteBlog('${blog._id}')">
@@ -172,10 +181,17 @@ async function fetchProjects() {
         const projects = await res.json();
         projectList.innerHTML = projects.map(project => `
             <tr>
-                <td>${project.name}</td>
                 <td>
-                    <a href="${project.liveLink}" target="_blank">Live</a> | 
-                    <a href="${project.githubLink}" target="_blank">Code</a>
+                    <div class="table-item-info">
+                        <img src="${project.image || 'https://via.placeholder.com/40'}" class="table-thumb" alt="">
+                        <span>${project.name}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="table-links">
+                        <a href="${project.liveLink}" target="_blank" title="Live Link"><i class="fas fa-external-link-alt"></i></a>
+                        <a href="${project.githubLink}" target="_blank" title="GitHub Link"><i class="fab fa-github"></i></a>
+                    </div>
                 </td>
                 <td class="actions-cell">
                     <button class="btn btn-danger" onclick="deleteProject('${project._id}')">
