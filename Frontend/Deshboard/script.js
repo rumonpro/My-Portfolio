@@ -103,10 +103,21 @@ function updateProjectPreview() {
 });
 
 // --- Helper for Image URLs ---
-function getImgUrl(url) {
-    if (!url) return 'https://via.placeholder.com/40';
-    // Encode the URL to handle spaces/special characters
-    return encodeURI(url);
+function getImgUrl(path) {
+    if (!path || path === '' || path === 'undefined') {
+        return 'https://via.placeholder.com/40';
+    }
+    
+    // Use localhost as it's the most common for local dev
+    const serverUrl = 'http://localhost:5000';
+    
+    // Extract only the filename from the path
+    let filename = path;
+    if (path.includes('/')) filename = path.split('/').pop();
+    if (path.includes('\\')) filename = path.split('\\').pop();
+    
+    // Encode the filename to handle spaces and commas
+    return `${serverUrl}/uploads/${encodeURIComponent(filename)}`;
 }
 
 // --- Blog CRUD ---
@@ -118,10 +129,7 @@ async function fetchBlogs() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${getImgUrl(blog.image)}" 
-                             class="table-thumb" 
-                             alt="" 
-                             onerror="this.src='https://via.placeholder.com/40'">
+                        <img src="${getImgUrl(blog.image)}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
                         <span>${blog.title}</span>
                     </div>
                 </td>
