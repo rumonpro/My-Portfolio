@@ -110,15 +110,15 @@ function getImgUrl(path) {
     
     const serverUrl = API_BASE_URL.replace('/api', '');
     
-    // Clean the path if it contains the full old URL
+    // Extract just the filename
     let filename = path;
-    if (path.startsWith('http')) {
+    if (path.includes('/')) {
         filename = path.split('/').pop();
     }
     
-    const finalUrl = `${serverUrl}/uploads/${filename}`;
-    console.log("Loading image from:", finalUrl); // This will help us debug in F12
-    return encodeURI(finalUrl);
+    // Manually encode only the filename to handle spaces and special chars correctly
+    const finalUrl = `${serverUrl}/uploads/${encodeURIComponent(filename)}`;
+    return finalUrl;
 }
 
 // --- Blog CRUD ---
