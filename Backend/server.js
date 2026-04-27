@@ -12,7 +12,11 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Absolute path for uploads (Fix for Windows)
+const uploadsPath = path.resolve(__dirname, 'uploads');
+app.use('/uploads', express.static(uploadsPath));
+console.log(`Serving uploads from: ${uploadsPath}`);
 
 // Routes
 app.use('/api/blogs', require('./routes/blogRoutes'));

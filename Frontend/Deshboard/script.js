@@ -106,15 +106,21 @@ function updateProjectPreview() {
 function getImgUrl(path) {
     if (!path) return 'https://via.placeholder.com/40';
     
-    // If it's already a full URL, just encode it
+    // Calculate the base server URL (e.g., http://localhost:5000)
+    const serverUrl = API_BASE_URL.replace('/api', '');
+    
+    // If it's already a full URL, just make sure it's encoded
     if (path.startsWith('http')) {
+        // If it's an old localhost URL, update it to the current serverUrl
+        if (path.includes('localhost:5000')) {
+             const filename = path.split('/').pop();
+             return encodeURI(`${serverUrl}/uploads/${filename}`);
+        }
         return encodeURI(path);
     }
     
-    // If it's just a filename, build the URL correctly
-    // This assumes the backend is on port 5000
-    const baseUrl = 'http://localhost:5000/uploads/';
-    return encodeURI(baseUrl + path);
+    // If it's just a filename, build it using the dynamic serverUrl
+    return encodeURI(`${serverUrl}/uploads/${path}`);
 }
 
 // --- Blog CRUD ---
