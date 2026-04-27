@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://127.0.0.1:5000/api';
 
 // DOM Elements
 const navItems = document.querySelectorAll('.nav-item');
@@ -103,23 +103,21 @@ function updateProjectPreview() {
 });
 
 // --- Helper for Image URLs ---
-function getImgUrl(path, title = 'Item') {
-    const serverUrl = API_BASE_URL.replace('/api', '');
-    const fallback = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(title)}`;
-    
+function getImgUrl(path) {
     if (!path || path === '' || path === 'undefined') {
-        return fallback;
+        return 'https://via.placeholder.com/400x200?text=No+Image';
     }
     
-    // Build the URL
-    let finalUrl = '';
+    const serverUrl = API_BASE_URL.replace('/api', '');
+    
+    // Clean the path if it contains the full old URL
+    let filename = path;
     if (path.startsWith('http')) {
-        const filename = path.split('/').pop();
-        finalUrl = `${serverUrl}/uploads/${filename}`;
-    } else {
-        finalUrl = `${serverUrl}/uploads/${path}`;
+        filename = path.split('/').pop();
     }
     
+    const finalUrl = `${serverUrl}/uploads/${filename}`;
+    console.log("Loading image from:", finalUrl); // This will help us debug in F12
     return encodeURI(finalUrl);
 }
 
@@ -132,10 +130,10 @@ async function fetchBlogs() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${getImgUrl(blog.image, blog.title)}" 
+                        <img src="${getImgUrl(blog.image)}" 
                              class="table-thumb" 
                              alt="" 
-                             onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(blog.title)}'">
+                             onerror="console.error('Image failed to load:', this.src)">
                         <span>${blog.title}</span>
                     </div>
                 </td>
@@ -210,10 +208,10 @@ async function fetchProjects() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${getImgUrl(project.image, project.name)}" 
+                        <img src="${getImgUrl(project.image)}" 
                              class="table-thumb" 
                              alt="" 
-                             onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(project.name)}'">
+                             onerror="console.error('Project image failed:', this.src)">
                         <span>${project.name}</span>
                     </div>
                 </td>
