@@ -71,6 +71,33 @@ projectImageFile.addEventListener('change', (e) => {
     }
 });
 
+// --- Live Preview Logic ---
+function updateBlogPreview() {
+    document.getElementById('preview-blog-title').innerText = document.getElementById('blog-title').value || 'Your Blog Title Here';
+    document.getElementById('preview-blog-body').innerText = document.getElementById('blog-content').value || 'Content appears here...';
+    document.getElementById('preview-blog-category').innerText = document.getElementById('blog-category').value || 'General';
+    const tags = document.getElementById('blog-tags').value;
+    document.getElementById('preview-blog-tags').innerText = tags ? tags.split(',').map(t => `#${t.trim()}`).join(' ') : '#cybersecurity';
+}
+
+function updateProjectPreview() {
+    document.getElementById('preview-project-name').innerText = document.getElementById('project-name').value || 'Project Name';
+    document.getElementById('preview-project-desc').innerText = document.getElementById('project-description').value || 'Description here...';
+    const tech = document.getElementById('project-tech').value;
+    const techHTML = tech ? tech.split(',').map(t => `<span>${t.trim()}</span>`).join('') : '<span>Tech</span>';
+    document.getElementById('preview-project-tech').innerHTML = techHTML;
+}
+
+// Add event listeners for blog inputs
+['blog-title', 'blog-content', 'blog-category', 'blog-tags'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateBlogPreview);
+});
+
+// Add event listeners for project inputs
+['project-name', 'project-description', 'project-tech'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateProjectPreview);
+});
+
 // --- Blog CRUD ---
 async function fetchBlogs() {
     try {
