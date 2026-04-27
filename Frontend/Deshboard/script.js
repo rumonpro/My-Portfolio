@@ -103,10 +103,18 @@ function updateProjectPreview() {
 });
 
 // --- Helper for Image URLs ---
-function getImgUrl(url) {
-    if (!url) return 'https://via.placeholder.com/40';
-    // Encode the URL to handle spaces/special characters
-    return encodeURI(url);
+function getImgUrl(path) {
+    if (!path) return 'https://via.placeholder.com/40';
+    
+    // If it's already a full URL, just encode it
+    if (path.startsWith('http')) {
+        return encodeURI(path);
+    }
+    
+    // If it's just a filename, build the URL correctly
+    // This assumes the backend is on port 5000
+    const baseUrl = 'http://localhost:5000/uploads/';
+    return encodeURI(baseUrl + path);
 }
 
 // --- Blog CRUD ---

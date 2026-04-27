@@ -23,7 +23,17 @@ const storage = multer.diskStorage({
 
 const upload = multer({ 
     storage,
-    limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    fileFilter: (req, file, cb) => {
+        const filetypes = /jpeg|jpg|png|webp/;
+        const mimetype = filetypes.test(file.mimetype);
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+        if (mimetype && extname) {
+            return cb(null, true);
+        }
+        cb(new Error('Only images (jpeg, jpg, png, webp) are allowed!'));
+    }
 });
 
 // Upload Endpoint
@@ -31,8 +41,8 @@ router.post('/', upload.single('image'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: 'No file uploaded' });
     }
-    const imageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
-    res.json({ imageUrl });
+    // We only return the filename now for better flexibility
+    res.json({ imageUrl: req.file.filename });
 });
 
 module.exports = router;
