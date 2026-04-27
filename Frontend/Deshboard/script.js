@@ -104,22 +104,20 @@ function updateProjectPreview() {
 
 // --- Helper for Image URLs ---
 function getImgUrl(path) {
-    if (!path) return 'https://via.placeholder.com/40';
-    
     // Calculate the base server URL (e.g., http://localhost:5000)
     const serverUrl = API_BASE_URL.replace('/api', '');
     
-    // If it's already a full URL, just make sure it's encoded
-    if (path.startsWith('http')) {
-        // If it's an old localhost URL, update it to the current serverUrl
-        if (path.includes('localhost:5000')) {
-             const filename = path.split('/').pop();
-             return encodeURI(`${serverUrl}/uploads/${filename}`);
-        }
-        return encodeURI(path);
+    if (!path || path === '') {
+        return 'https://api.dicebear.com/7.x/initials/svg?seed=Blog'; // Dynamic placeholder if no image
     }
     
-    // If it's just a filename, build it using the dynamic serverUrl
+    // If it's already a full URL
+    if (path.startsWith('http')) {
+        const filename = path.split('/').pop();
+        return encodeURI(`${serverUrl}/uploads/${filename}`);
+    }
+    
+    // It's a filename, build it using the serverUrl
     return encodeURI(`${serverUrl}/uploads/${path}`);
 }
 
