@@ -108,16 +108,14 @@ function getImgUrl(path) {
         return 'https://via.placeholder.com/400x200?text=No+Image';
     }
     
-    // Base address of your backend
+    // Using 127.0.0.1 for maximum compatibility on local Windows machines
     const serverUrl = 'http://127.0.0.1:5000';
     
-    // Extract just the filename if it's a full URL
+    // Extract just the filename if it's a full path or URL
     let filename = path;
-    if (path.includes('/')) {
-        filename = path.split('/').pop();
-    }
+    if (path.includes('/')) filename = path.split('/').pop();
+    if (path.includes('\\')) filename = path.split('\\').pop();
     
-    // IMPORTANT: Encode only the filename to handle spaces/commas correctly
     return `${serverUrl}/uploads/${encodeURIComponent(filename)}`;
 }
 
