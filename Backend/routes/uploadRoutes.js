@@ -6,7 +6,7 @@ const fs = require('fs');
 
 // Ensure uploads directory exists
 const uploadDir = 'uploads/';
-if (!fs.existsSync(uploadDir)){
+if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
 
@@ -21,19 +21,9 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ 
+const upload = multer({
     storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
-    fileFilter: (req, file, cb) => {
-        const filetypes = /jpeg|jpg|png|webp/;
-        const mimetype = filetypes.test(file.mimetype);
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-
-        if (mimetype && extname) {
-            return cb(null, true);
-        }
-        cb(new Error('Only images (jpeg, jpg, png, webp) are allowed!'));
-    }
+    limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
 });
 
 // Upload Endpoint
@@ -41,8 +31,8 @@ router.post('/', upload.single('image'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: 'No file uploaded' });
     }
-    // We only return the filename now for better flexibility
-    res.json({ imageUrl: req.file.filename });
+    const imageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    res.json({ imageUrl });
 });
 
 module.exports = router;

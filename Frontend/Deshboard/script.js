@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://127.0.0.1:5000/api';
+const API_BASE_URL = 'http://localhost:5000/api';
 
 // DOM Elements
 const navItems = document.querySelectorAll('.nav-item');
@@ -78,7 +78,7 @@ function updateBlogPreview() {
     document.getElementById('preview-blog-category').innerText = document.getElementById('blog-category').value || 'General';
     const tags = document.getElementById('blog-tags').value;
     document.getElementById('preview-blog-tags').innerText = tags ? tags.split(',').map(t => `#${t.trim()}`).join(' ') : '#cybersecurity';
-    
+
     // Update date to current date
     const options = { month: 'short', day: 'numeric', year: 'numeric' };
     document.getElementById('preview-blog-date').innerText = new Date().toLocaleDateString('en-US', options);
@@ -108,17 +108,17 @@ function getImgUrl(path) {
         return 'https://via.placeholder.com/400x200?text=No+Image';
     }
     
-    const serverUrl = API_BASE_URL.replace('/api', '');
+    // Base address of your backend
+    const serverUrl = 'http://127.0.0.1:5000';
     
-    // Extract just the filename
+    // Extract just the filename if it's a full URL
     let filename = path;
     if (path.includes('/')) {
         filename = path.split('/').pop();
     }
     
-    // Manually encode only the filename to handle spaces and special chars correctly
-    const finalUrl = `${serverUrl}/uploads/${encodeURIComponent(filename)}`;
-    return finalUrl;
+    // IMPORTANT: Encode only the filename to handle spaces/commas correctly
+    return `${serverUrl}/uploads/${encodeURIComponent(filename)}`;
 }
 
 // --- Blog CRUD ---
@@ -130,10 +130,7 @@ async function fetchBlogs() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${getImgUrl(blog.image)}" 
-                             class="table-thumb" 
-                             alt="" 
-                             onerror="console.error('Image failed to load:', this.src)">
+                        <img src="${getImgUrl(blog.image)}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
                         <span>${blog.title}</span>
                     </div>
                 </td>
@@ -208,10 +205,7 @@ async function fetchProjects() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${getImgUrl(project.image)}" 
-                             class="table-thumb" 
-                             alt="" 
-                             onerror="console.error('Project image failed:', this.src)">
+                        <img src="${getImgUrl(project.image)}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
                         <span>${project.name}</span>
                     </div>
                 </td>
@@ -289,7 +283,7 @@ async function fetchStats() {
         ]);
         const blogs = await bRes.json();
         const projects = await pRes.json();
-        
+
         document.getElementById('blog-count').innerText = blogs.length || 0;
         document.getElementById('project-count').innerText = projects.length || 0;
     } catch (e) {

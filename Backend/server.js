@@ -12,15 +12,13 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
-
 // Absolute path for uploads (Fix for Windows)
-const uploadsPath = path.join(__dirname, 'uploads');
+const uploadsPath = path.resolve(__dirname, 'uploads');
 app.use('/uploads', express.static(uploadsPath, {
-    setHeaders: (res, path) => {
+    setHeaders: (res) => {
         res.set('Access-Control-Allow-Origin', '*');
     }
 }));
-console.log(`✅ Uploads are being served from: ${uploadsPath}`);
 
 // Routes
 app.use('/api/blogs', require('./routes/blogRoutes'));
