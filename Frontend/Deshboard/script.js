@@ -102,6 +102,13 @@ function updateProjectPreview() {
     document.getElementById(id).addEventListener('input', updateProjectPreview);
 });
 
+// --- Helper for Image URLs ---
+function getImgUrl(url) {
+    if (!url) return 'https://via.placeholder.com/40';
+    // Encode the URL to handle spaces/special characters
+    return encodeURI(url);
+}
+
 // --- Blog CRUD ---
 async function fetchBlogs() {
     try {
@@ -111,7 +118,7 @@ async function fetchBlogs() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${blog.image || 'https://via.placeholder.com/40'}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
+                        <img src="${getImgUrl(blog.image)}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
                         <span>${blog.title}</span>
                     </div>
                 </td>
@@ -186,7 +193,7 @@ async function fetchProjects() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${project.image || 'https://via.placeholder.com/40'}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
+                        <img src="${getImgUrl(project.image)}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
                         <span>${project.name}</span>
                     </div>
                 </td>
