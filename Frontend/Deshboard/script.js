@@ -111,13 +111,16 @@ async function fetchBlogs() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${blog.image || 'https://via.placeholder.com/40'}" class="table-thumb" alt="">
+                        <img src="${blog.image || 'https://via.placeholder.com/40'}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
                         <span>${blog.title}</span>
                     </div>
                 </td>
                 <td>${new Date(blog.createdAt).toLocaleDateString()}</td>
                 <td class="actions-cell">
-                    <button class="btn btn-danger" onclick="deleteBlog('${blog._id}')">
+                    <a href="Blog Static Page/index.html?id=${blog._id}" target="_blank" class="btn btn-primary btn-sm" title="View Blog">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <button class="btn btn-danger btn-sm" onclick="deleteBlog('${blog._id}')" title="Delete Blog">
                         <i class="fas fa-trash"></i>
                     </button>
                 </td>
@@ -183,7 +186,7 @@ async function fetchProjects() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${project.image || 'https://via.placeholder.com/40'}" class="table-thumb" alt="">
+                        <img src="${project.image || 'https://via.placeholder.com/40'}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
                         <span>${project.name}</span>
                     </div>
                 </td>
@@ -194,7 +197,7 @@ async function fetchProjects() {
                     </div>
                 </td>
                 <td class="actions-cell">
-                    <button class="btn btn-danger" onclick="deleteProject('${project._id}')">
+                    <button class="btn btn-danger btn-sm" onclick="deleteProject('${project._id}')" title="Delete Project">
                         <i class="fas fa-trash"></i>
                     </button>
                 </td>

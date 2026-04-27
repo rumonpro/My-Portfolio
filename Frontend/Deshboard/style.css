@@ -309,9 +309,15 @@ input:focus, textarea:focus {
     border-bottom: none;
 }
 
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+}
+
 .actions-cell {
     display: flex;
-    gap: 10px;
+    gap: 8px;
+    align-items: center;
 }
 
 .table-item-info {
