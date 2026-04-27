@@ -103,22 +103,24 @@ function updateProjectPreview() {
 });
 
 // --- Helper for Image URLs ---
-function getImgUrl(path, title = 'Blog') {
+function getImgUrl(path, title = 'Item') {
     const serverUrl = API_BASE_URL.replace('/api', '');
+    const fallback = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(title)}`;
     
-    // If no image is provided, use a dynamic unique icon based on the title
-    if (!path || path === '') {
-        return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(title)}`;
+    if (!path || path === '' || path === 'undefined') {
+        return fallback;
     }
     
-    // If it's a full URL (old data)
+    // Build the URL
+    let finalUrl = '';
     if (path.startsWith('http')) {
         const filename = path.split('/').pop();
-        return encodeURI(`${serverUrl}/uploads/${filename}`);
+        finalUrl = `${serverUrl}/uploads/${filename}`;
+    } else {
+        finalUrl = `${serverUrl}/uploads/${path}`;
     }
     
-    // Standard backend image path
-    return encodeURI(`${serverUrl}/uploads/${path}`);
+    return encodeURI(finalUrl);
 }
 
 // --- Blog CRUD ---
@@ -130,7 +132,10 @@ async function fetchBlogs() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${getImgUrl(blog.image, blog.title)}" class="table-thumb" alt="" onerror="this.style.display='none'">
+                        <img src="${getImgUrl(blog.image, blog.title)}" 
+                             class="table-thumb" 
+                             alt="" 
+                             onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(blog.title)}'">
                         <span>${blog.title}</span>
                     </div>
                 </td>
@@ -205,7 +210,10 @@ async function fetchProjects() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${getImgUrl(project.image, project.name)}" class="table-thumb" alt="" onerror="this.style.display='none'">
+                        <img src="${getImgUrl(project.image, project.name)}" 
+                             class="table-thumb" 
+                             alt="" 
+                             onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(project.name)}'">
                         <span>${project.name}</span>
                     </div>
                 </td>
