@@ -103,21 +103,21 @@ function updateProjectPreview() {
 });
 
 // --- Helper for Image URLs ---
-function getImgUrl(path) {
-    // Calculate the base server URL (e.g., http://localhost:5000)
+function getImgUrl(path, title = 'Blog') {
     const serverUrl = API_BASE_URL.replace('/api', '');
     
+    // If no image is provided, use a dynamic unique icon based on the title
     if (!path || path === '') {
-        return 'https://api.dicebear.com/7.x/initials/svg?seed=Blog'; // Dynamic placeholder if no image
+        return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(title)}`;
     }
     
-    // If it's already a full URL
+    // If it's a full URL (old data)
     if (path.startsWith('http')) {
         const filename = path.split('/').pop();
         return encodeURI(`${serverUrl}/uploads/${filename}`);
     }
     
-    // It's a filename, build it using the serverUrl
+    // Standard backend image path
     return encodeURI(`${serverUrl}/uploads/${path}`);
 }
 
@@ -130,7 +130,7 @@ async function fetchBlogs() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${getImgUrl(blog.image)}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
+                        <img src="${getImgUrl(blog.image, blog.title)}" class="table-thumb" alt="" onerror="this.style.display='none'">
                         <span>${blog.title}</span>
                     </div>
                 </td>
@@ -205,7 +205,7 @@ async function fetchProjects() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${getImgUrl(project.image)}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
+                        <img src="${getImgUrl(project.image, project.name)}" class="table-thumb" alt="" onerror="this.style.display='none'">
                         <span>${project.name}</span>
                     </div>
                 </td>
