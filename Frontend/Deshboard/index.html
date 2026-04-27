@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>Admin Panel</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="nav-item active" data-page="home">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-page="blogs">
+                    <i class="fas fa-blog"></i> Manage Blogs
+                </a>
+                <a href="#" class="nav-item" data-page="projects">
+                    <i class="fas fa-project-diagram"></i> Manage Projects
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <h1 id="page-title">Dashboard Overview</h1>
+                <div class="user-profile">
+                    <span>Admin User</span>
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" alt="Admin">
+                </div>
+            </header>
+
+            <!-- Home Section -->
+            <section id="home-section" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+                        <div class="stat-info">
+                            <h3 id="blog-count">0</h3>
+                            <p>Total Blogs</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="stat-info">
+                            <h3 id="project-count">0</h3>
+                            <p>Total Projects</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3>1,250</h3>
+                            <p>Visitors</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-card">
+                    <h2>Welcome back, Admin!</h2>
+                    <p>Manage your portfolio content efficiently from here.</p>
+                </div>
+            </section>
+
+            <!-- Blogs Section -->
+            <section id="blogs-section" class="content-section">
+                <div class="dashboard-grid">
+                    <div class="form-container">
+                        <h3><i class="fas fa-plus"></i> Create New Blog</h3>
+                        <form id="blog-form">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" id="blog-title" placeholder="Enter blog title" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Content</label>
+                                <textarea id="blog-content" rows="5" placeholder="Write your blog content here..."
+                                    required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <input type="text" id="blog-category" list="category-options"
+                                    placeholder="Select or type category" required>
+                                <datalist id="category-options">
+                                    <option value="Cyber Security">
+                                    <option value="Cloud Security">
+                                    <option value="Bug Bounty">
+                                    <option value="Network Security">
+                                    <option value="Web Penetration">
+                                </datalist>
+                            </div>
+                            <div class="form-group">
+                                <label>Upload Image</label>
+                                <div class="file-upload-wrapper">
+                                    <input type="file" id="blog-image-file" accept="image/*">
+                                    <input type="hidden" id="blog-image-url">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Tags (comma separated)</label>
+                                <input type="text" id="blog-tags" placeholder="cybersecurity, tech, news">
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="blog-submit">Create Blog</button>
+                        </form>
+                    </div>
+
+                    <div class="preview-container">
+                        <h3><i class="fas fa-eye"></i> Live Preview</h3>
+                        <div class="blog-preview-card glass-preview" id="blog-live-preview">
+                            <div class="preview-img-wrapper">
+                                <img id="preview-blog-img" src="https://via.placeholder.com/400x200?text=Blog+Image"
+                                    alt="">
+                            </div>
+                            <div class="preview-content">
+                                <div class="preview-badge-row">
+                                    <span class="preview-category" id="preview-blog-category">General</span>
+                                    <span class="preview-tags" id="preview-blog-tags">#cybersecurity</span>
+                                </div>
+                                <h2 id="preview-blog-title">Your Blog Title Here</h2>
+                                <p id="preview-blog-body">The content of your blog will appear here as you type...</p>
+                                <div class="preview-footer">
+                                    <span>By Admin</span>
+                                    <span id="preview-blog-date">Apr 25, 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-list-container">
+                    <h3>Existing Blogs</h3>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="blog-list">
+                                <!-- Blogs will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects-section" class="content-section">
+                <div class="dashboard-grid">
+                    <div class="form-container">
+                        <h3><i class="fas fa-upload"></i> Upload New Project</h3>
+                        <form id="project-form">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                <input type="text" id="project-name" placeholder="Enter project name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea id="project-description" rows="3" placeholder="Describe your project..."
+                                    required></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Live Link</label>
+                                    <input type="text" id="project-live" placeholder="https://live-demo.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>GitHub Link</label>
+                                    <input type="text" id="project-github" placeholder="https://github.com/user/repo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Upload Project Image</label>
+                                <div class="file-upload-wrapper">
+                                    <input type="file" id="project-image-file" accept="image/*">
+                                    <input type="hidden" id="project-image-url">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Tech Stack (comma separated)</label>
+                                <input type="text" id="project-tech" placeholder="React, Node.js, MongoDB">
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="project-submit">Upload Project</button>
+                        </form>
+                    </div>
+
+                    <div class="preview-container">
+                        <h3><i class="fas fa-eye"></i> Live Preview</h3>
+                        <div class="project-preview-card glass-preview" id="project-live-preview">
+                            <div class="preview-img-wrapper">
+                                <img id="preview-project-img"
+                                    src="https://via.placeholder.com/400x200?text=Project+Image" alt="">
+                            </div>
+                            <div class="preview-content">
+                                <h2 id="preview-project-name">Project Name</h2>
+                                <p id="preview-project-desc">Project description will show here...</p>
+                                <div class="preview-tech-stack" id="preview-project-tech">
+                                    <span>React</span>
+                                    <span>Tailwind</span>
+                                </div>
+                                <div class="preview-links">
+                                    <div class="p-link"><i class="fas fa-external-link-alt"></i> Live</div>
+                                    <div class="p-link"><i class="fab fa-github"></i> Code</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-list-container">
+                    <h3>Existing Projects</h3>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Project Name</th>
+                                    <th>Links</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="project-list">
+                                <!-- Projects will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

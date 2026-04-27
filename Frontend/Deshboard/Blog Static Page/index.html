@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Details | LockHive Security</title>
+
+    <!-- Shared Component CSS -->
+    <link rel="stylesheet" href="../../container/header/header.css">
+    <link rel="stylesheet" href="../../container/footer/footer.css">
+
+    <!-- Blog Specific CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Static Header from container/header/header.html -->
+    <header class="main-header" id="main-header">
+        <div class="header-container">
+            <!-- Logo -->
+            <a href="../../Index.html" class="logo">
+                <div class="logo-top">
+                    <img src="../../Assets/Rumon.webp" alt="Rumon Logo" class="logo-img">
+                </div>
+                <span class="logo-sub">CYBER SECURITY</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="nav-links">
+                <a href="../../Index.html#home" class="nav-item active">HOME</a>
+                <a href="../../Index.html#experience" class="nav-item">ABOUT ME</a>
+                <a href="../../Index.html#portfolio" class="nav-item">PORTFOLIO</a>
+                <a href="../../Index.html#contact" class="nav-item">CONTACT ME</a>
+            </nav>
+
+            <!-- Right Action Buttons -->
+            <div class="header-actions">
+                <!-- Social Icons -->
+                <div class="social-icons">
+                    <a href="#" class="social-icon" aria-label="Github">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+
+                <!-- Contact Us Button -->
+                <a href="../../Index.html#contact" class="btn-header">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div class="mobile-menu">
+            <a href="../../Index.html#home" class="mobile-nav-item">Home</a>
+            <a href="../../Index.html#experience" class="mobile-nav-item">About me</a>
+            <a href="../../Index.html#portfolio" class="mobile-nav-item">Portfolio</a>
+            <a href="../../Index.html#contact" class="mobile-nav-item">Contact me</a>
+        </div>
+    </header>
+
+    <!-- Page Header (Blog Title Section) -->
+    <div class="page-header">
+        <div class="container">
+            <h1 id="blog-main-title">Protecting Your Data Online</h1>
+            <div class="breadcrumbs">
+                <a href="../../Index.html">Home</a> <i class="fas fa-chevron-right"></i>
+                <a href="#">Blog</a> <i class="fas fa-chevron-right"></i>
+                <span id="breadcrumb-current">Protecting your Data Online</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="main-layout container">
+        <div class="content-area">
+            <div class="featured-image">
+                <img id="blog-featured-img"
+                    src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000"
+                    alt="Blog Image">
+            </div>
+
+            <div class="post-meta">
+                <span><i class="far fa-user"></i> ADMIN</span>
+                <span><i class="far fa-calendar"></i> <span id="blog-date">SEPTEMBER 11, 2024</span></span>
+                <span class="category-tag"><i class="fas fa-folder"></i> CYBER SECURITY</span>
+            </div>
+
+            <article class="blog-article">
+                <div id="blog-content-body">
+                    <p>Loading content...</p>
+                </div>
+            </article>
+
+            <!-- Comments Section -->
+            <section class="comment-section">
+                <h3>Leave a Reply</h3>
+                <p>Your email address will not be published. Required fields are marked *</p>
+                <form class="comment-form">
+                    <textarea placeholder="Comment *" required></textarea>
+                    <div class="form-grid">
+                        <input type="text" placeholder="Name *" required>
+                        <input type="email" placeholder="Email *" required>
+                    </div>
+                    <input type="text" placeholder="Website">
+                    <button type="submit" class="submit-btn">POST COMMENT</button>
+                </form>
+            </section>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="widget search-widget">
+                <h3>Search</h3>
+                <div class="search-box">
+                    <input type="text" placeholder="Search for...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <div class="widget recent-posts">
+                <h3>Recent Post</h3>
+                <div class="post-list" id="recent-posts-list">
+                    <!-- Dynamic Recent Posts -->
+                </div>
+            </div>
+
+            <div class="widget categories-widget">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Cloud Security</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Cyber Safety</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Future Security</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Online Privacy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Security Trends</a></li>
+                </ul>
+            </div>
+
+            <div class="widget tags-widget">
+                <h3>Popular Tags</h3>
+                <div class="tags-cloud">
+                    <a href="#">Compliance</a>
+                    <a href="#">Encryption</a>
+                    <a href="#">Firewall</a>
+                    <a href="#">Malware</a>
+                    <a href="#">Phishing</a>
+                </div>
+            </div>
+
+            <div class="ad-widget">
+                <div class="ad-content">
+                    <div class="ad-icon"><i class="fas fa-shield-heart"></i></div>
+                    <h4>Securing the Future Today</h4>
+                    <p>Hackers Don't Need Keys, Just Carelessness.</p>
+                    <button class="ad-btn"><i class="far fa-eye"></i> CONTACT US</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Static Footer from container/footer/footer.html -->
+    <footer id="footer-container">
+        <section class="footer-module">
+            <div class="footer-shell">
+                <div class="footer-panel">
+                    <div class="footer-panel-inner">
+                        <div class="footer-col brand-col">
+                            <div class="footer-logo-line">
+                                <h2 class="footer-logo-wordmark" aria-label="LockHive">
+                                    <span class="wm-l">L</span>
+                                    <span class="wm-lock" aria-hidden="true"><i class="fas fa-lock"></i></span>
+                                    <span class="wm-ck">CK</span>
+                                    <span class="wm-hive">HIVE</span>
+                                </h2>
+                            </div>
+                            <span class="footer-brand-tag">CYBER SECURITY</span>
+                            <p class="brand-desc">We provide innovative solutions to drive growth, streamline
+                                operations, & achieve your goals.</p>
+                            <div class="footer-location">
+                                <h3 class="loc-title">24/7 Our Location</h3>
+                                <p>132, Tic St, Kingston, New York 12401 USA.</p>
+                            </div>
+                        </div>
+                        <div class="footer-main-content">
+                            <div class="footer-newsletter">
+                                <div class="footer-news-header">
+                                    <div class="footer-news-icon"><i class="far fa-envelope"></i></div>
+                                    <h3>Take The First Step<br>Towards Cyber Resilience</h3>
+                                </div>
+                                <form class="footer-subscribe">
+                                    <input type="email" placeholder="Email Address">
+                                    <button type="submit"><i class="far fa-paper-plane"></i></button>
+                                </form>
+                            </div>
+                            <div class="footer-info-row">
+                                <div class="footer-info-block">
+                                    <span class="footer-label">Contact Us</span>
+                                    <a href="tel:+5284567592">+(528) 456-7592</a>
+                                </div>
+                                <div class="footer-info-block">
+                                    <span class="footer-label">Social Links</span>
+                                    <div class="footer-socials">
+                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#"><i class="fab fa-twitter"></i></a>
+                                        <a href="#"><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../container/header/header.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
