@@ -12,22 +12,7 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Request Logger (Debug Tool)
-app.use((req, res, next) => {
-    console.log(`${new Date().toLocaleTimeString()} - ${req.method} ${req.url}`);
-    next();
-});
-
-// Absolute path for uploads (Fix for Windows)
-const uploadsPath = path.resolve(__dirname, 'uploads');
-app.use('/uploads', express.static(uploadsPath, {
-    setHeaders: (res) => {
-        res.set('Access-Control-Allow-Origin', '*');
-        res.set('Cross-Origin-Resource-Policy', 'cross-origin');
-    }
-}));
-console.log(`✅ Server is serving images from: ${uploadsPath}`);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api/blogs', require('./routes/blogRoutes'));

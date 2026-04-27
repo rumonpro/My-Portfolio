@@ -103,20 +103,10 @@ function updateProjectPreview() {
 });
 
 // --- Helper for Image URLs ---
-function getImgUrl(path) {
-    if (!path || path === '' || path === 'undefined') {
-        return 'https://via.placeholder.com/400x200?text=No+Image';
-    }
-    
-    // Using 127.0.0.1 for maximum compatibility on local Windows machines
-    const serverUrl = 'http://127.0.0.1:5000';
-    
-    // Extract just the filename if it's a full path or URL
-    let filename = path;
-    if (path.includes('/')) filename = path.split('/').pop();
-    if (path.includes('\\')) filename = path.split('\\').pop();
-    
-    return `${serverUrl}/uploads/${encodeURIComponent(filename)}`;
+function getImgUrl(url) {
+    if (!url) return 'https://via.placeholder.com/40';
+    // Encode the URL to handle spaces/special characters
+    return encodeURI(url);
 }
 
 // --- Blog CRUD ---
@@ -128,7 +118,10 @@ async function fetchBlogs() {
             <tr>
                 <td>
                     <div class="table-item-info">
-                        <img src="${getImgUrl(blog.image)}" class="table-thumb" alt="" onerror="this.src='https://via.placeholder.com/40'">
+                        <img src="${getImgUrl(blog.image)}" 
+                             class="table-thumb" 
+                             alt="" 
+                             onerror="this.src='https://via.placeholder.com/40'">
                         <span>${blog.title}</span>
                     </div>
                 </td>
